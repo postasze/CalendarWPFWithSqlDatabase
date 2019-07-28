@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NTR2017Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="NTR2017ModelStoreContainer">
+          <EntitySet Name="DayEvents" EntityType="NTR2017Model.Store.DayEvents" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="NTR2017Model.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_DayEventForUser" Association="NTR2017Model.Store.FK_DayEventForUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DayEvents" EntitySet="DayEvents" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DayEvents">
+          <Key>
+            <PropertyRef Name="username" />
+            <PropertyRef Name="eventDescription" />
+            <PropertyRef Name="startTime" />
+            <PropertyRef Name="endTime" />
+          </Key>
+          <Property Name="username" Type="char" Nullable="false" MaxLength="32" />
+          <Property Name="eventDescription" Type="char" Nullable="false" MaxLength="32" />
+          <Property Name="startTime" Type="datetime" Nullable="false" />
+          <Property Name="endTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="char" Nullable="false" MaxLength="32" />
+        </EntityType>
+        <Association Name="FK_DayEventForUser">
+          <End Role="Users" Type="NTR2017Model.Store.Users" Multiplicity="1" />
+          <End Role="DayEvents" Type="NTR2017Model.Store.DayEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="DayEvents">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NTR2017Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="CalendarDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DayEvents" EntityType="NTR2017Model.DayEvents" />
+          <EntitySet Name="Users" EntityType="NTR2017Model.Users" />
+          <AssociationSet Name="FK_DayEventForUser" Association="NTR2017Model.FK_DayEventForUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DayEvents" EntitySet="DayEvents" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DayEvents">
+          <Key>
+            <PropertyRef Name="username" />
+            <PropertyRef Name="eventDescription" />
+            <PropertyRef Name="startTime" />
+            <PropertyRef Name="endTime" />
+          </Key>
+          <Property Name="username" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="true" />
+          <Property Name="eventDescription" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="true" />
+          <Property Name="startTime" Type="DateTime" Nullable="false" />
+          <Property Name="endTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="NTR2017Model.FK_DayEventForUser" FromRole="DayEvents" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="true" />
+          <NavigationProperty Name="DayEvents" Relationship="NTR2017Model.FK_DayEventForUser" FromRole="Users" ToRole="DayEvents" />
+        </EntityType>
+        <Association Name="FK_DayEventForUser">
+          <End Role="Users" Type="NTR2017Model.Users" Multiplicity="1" />
+          <End Role="DayEvents" Type="NTR2017Model.DayEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="DayEvents">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NTR2017ModelStoreContainer" CdmEntityContainer="CalendarDatabaseEntities">
+          <EntitySetMapping Name="DayEvents">
+            <EntityTypeMapping TypeName="NTR2017Model.DayEvents">
+              <MappingFragment StoreEntitySet="DayEvents">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="eventDescription" ColumnName="eventDescription" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="NTR2017Model.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="CalendarDatabaseEntities">
+        <EntityTypeShape EntityType="NTR2017Model.DayEvents" Width="1.5" PointX="3" PointY="0.875" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTR2017Model.Users" Width="1.5" PointX="0.75" PointY="1.25" Height="1.4033821614583335" IsExpanded="true" />
+        <AssociationConnector Association="NTR2017Model.FK_DayEventForUser" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.9516910807291668" />
+          <ConnectorPoint PointX="3" PointY="1.9516910807291668" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

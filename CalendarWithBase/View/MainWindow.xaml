@@ -1,0 +1,449 @@
+﻿<Window x:Class="CalendarWithBase.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="clr-namespace:CalendarWithBase.View"
+        xmlns:vm="clr-namespace:CalendarWithBase.ViewModel"
+        Title="MainWindow" Height="350" Width="525" MouseRightButtonDown="Window_MouseRightButtonDown" FontFamily="{Binding FontType}" Background="{Binding WindowColor}">
+    
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <v:WidthToSizeConverter x:Key="WidthToSizeConverter" />
+    </Window.Resources>
+
+    <Grid Name="MainGrid" >
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="1, 1, 1, 1" />
+                <Setter Property="Command" Value="{Binding ButtonCommandProperty}" />
+                <Setter Property="FontSize" Value="{Binding Converter={StaticResource WidthToSizeConverter}, ElementName=MainGrid, Path=ActualWidth}" />
+                <Setter Property="Background" Value="{Binding ButtonColor}" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Margin" Value="1, 1, 1, 1" />
+                <Setter Property="Background" Value="{Binding GeneralLabelColor}" />
+                <Setter Property="FontSize" Value="{Binding Converter={StaticResource WidthToSizeConverter}, ElementName=MainGrid, Path=ActualWidth}" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="1" />
+                <Setter Property="Padding" Value="0, 0, 0, 0" />
+                <Setter Property="FontSize" Value="{Binding Converter={StaticResource WidthToSizeConverter}, ElementName=MainGrid, Path=ActualWidth}" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Button Name="Button_prev_1" CommandParameter="prev" Grid.Column="0" Grid.Row="0" Content="prev" />
+        <Button Name="Button_prev_2" CommandParameter="prev" Grid.Column="8" Grid.Row="0" Content="prev" />
+        <Button Name="Button_next_1" CommandParameter="next" Grid.Column="0" Grid.Row="5" Content="next" />
+        <Button Name="Button_next_2" CommandParameter="next" Grid.Column="8" Grid.Row="5" Content="next" />
+        <Label Content="Monday" Grid.Column="1" Grid.Row="0" />
+        <Label Content="Tuesday" Grid.Column="2" Grid.Row="0" />
+        <Label Content="Wednesday" Grid.Column="3" Grid.Row="0" />
+        <Label Content="Thursday" Grid.Column="4" Grid.Row="0" />
+        <Label Content="Friday" Grid.Column="5" Grid.Row="0" />
+        <Label Content="Saturday" Grid.Column="6" Grid.Row="0" />
+        <Label Content="Sunday" Grid.Column="7" Grid.Row="0" />
+        <Label Content="Monday" Grid.Column="1" Grid.Row="5" />
+        <Label Content="Tuesday" Grid.Column="2" Grid.Row="5" />
+        <Label Content="Wednesday" Grid.Column="3" Grid.Row="5" />
+        <Label Content="Thursday" Grid.Column="4" Grid.Row="5"/>
+        <Label Content="Friday" Grid.Column="5" Grid.Row="5" />
+        <Label Content="Saturday" Grid.Column="6" Grid.Row="5"/>
+        <Label Content="Sunday" Grid.Column="7" Grid.Row="5" />
+        <Label Content="{Binding WeekLabelsArray[0]}" Grid.Column="0" Grid.Row="1" />
+        <Label Content="{Binding WeekLabelsArray[1]}" Grid.Column="0" Grid.Row="2" />
+        <Label Content="{Binding WeekLabelsArray[2]}" Grid.Column="0" Grid.Row="3" />
+        <Label Content="{Binding WeekLabelsArray[3]}" Grid.Column="0" Grid.Row="4" />
+        <Label Content="{Binding WeekLabelsArray[0]}" Grid.Column="8" Grid.Row="1" />
+        <Label Content="{Binding WeekLabelsArray[1]}" Grid.Column="8" Grid.Row="2" />
+        <Label Content="{Binding WeekLabelsArray[2]}" Grid.Column="8" Grid.Row="3" />
+        <Label Content="{Binding WeekLabelsArray[3]}" Grid.Column="8" Grid.Row="4" />
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Label x:Name="Label1" Content="{Binding DayLabelsArray[0]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[0]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel1" MouseLeftButtonDown="StackPanel1_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="1" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace1" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="1" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="1" >
+            <Label x:Name="Label2" Content="{Binding DayLabelsArray[1]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[1]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel2" MouseLeftButtonDown="StackPanel2_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="2" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace2" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="2" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="1" >
+            <Label x:Name="Label3" Content="{Binding DayLabelsArray[2]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[2]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel3" MouseLeftButtonDown="StackPanel3_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="3" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace3" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="3" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="4" Grid.Row="1" >
+            <Label x:Name="Label4" Content="{Binding DayLabelsArray[3]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[3]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel4" MouseLeftButtonDown="StackPanel4_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="4" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace4" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="4" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="5" Grid.Row="1" >
+            <Label x:Name="Label5" Content="{Binding DayLabelsArray[4]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[4]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel5" MouseLeftButtonDown="StackPanel5_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="5" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace5" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="5" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Grid.Row="1" >
+            <Label x:Name="Label6" Content="{Binding DayLabelsArray[5]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[5]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel6" MouseLeftButtonDown="StackPanel6_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="6" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace6" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="6" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="7" Grid.Row="1" >
+            <Label x:Name="Label7" Content="{Binding DayLabelsArray[6]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[6]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel7" MouseLeftButtonDown="StackPanel7_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="7" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace7" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="7" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="2" >
+            <Label x:Name="Label8" Content="{Binding DayLabelsArray[7]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[7]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel8" MouseLeftButtonDown="StackPanel8_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="8" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace8" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="8" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="2" >
+            <Label x:Name="Label9" Content="{Binding DayLabelsArray[8]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[8]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel9" MouseLeftButtonDown="StackPanel9_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="9" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace9" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="9" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="2" >
+            <Label x:Name="Label10" Content="{Binding DayLabelsArray[9]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[9]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel10" MouseLeftButtonDown="StackPanel10_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="10" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace10" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="10" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="4" Grid.Row="2" >
+            <Label x:Name="Label11" Content="{Binding DayLabelsArray[10]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[10]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel11" MouseLeftButtonDown="StackPanel11_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="11" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace11" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="11" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="5" Grid.Row="2" >
+            <Label x:Name="Label12" Content="{Binding DayLabelsArray[11]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[11]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel12" MouseLeftButtonDown="StackPanel12_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="12" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace12" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="12" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Grid.Row="2" >
+            <Label x:Name="Label13" Content="{Binding DayLabelsArray[12]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[12]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel13" MouseLeftButtonDown="StackPanel13_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="13" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace13" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="13" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="7" Grid.Row="2" >
+            <Label x:Name="Label14" Content="{Binding DayLabelsArray[13]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[13]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel14" MouseLeftButtonDown="StackPanel14_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="14" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace14" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="14" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="3" >
+            <Label x:Name="Label15" Content="{Binding DayLabelsArray[14]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[14]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel15" MouseLeftButtonDown="StackPanel15_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="15" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace15" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="15" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="3" >
+            <Label x:Name="Label16" Content="{Binding DayLabelsArray[15]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[15]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel16" MouseLeftButtonDown="StackPanel16_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="16" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace16" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="16" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="3" >
+            <Label x:Name="Label17" Content="{Binding DayLabelsArray[16]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[16]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel17" MouseLeftButtonDown="StackPanel17_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="17" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace17" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="17" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="4" Grid.Row="3" >
+            <Label x:Name="Label18" Content="{Binding DayLabelsArray[17]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[17]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel18" MouseLeftButtonDown="StackPanel18_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="18" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace18" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="18" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="5" Grid.Row="3" >
+            <Label x:Name="Label19" Content="{Binding DayLabelsArray[18]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[18]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel19" MouseLeftButtonDown="StackPanel19_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="19" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace19" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="19" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Grid.Row="3" >
+            <Label x:Name="Label20" Content="{Binding DayLabelsArray[19]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[19]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel20" MouseLeftButtonDown="StackPanel20_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="20" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace20" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="20" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="7" Grid.Row="3" >
+            <Label x:Name="Label21" Content="{Binding DayLabelsArray[20]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[20]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel21" MouseLeftButtonDown="StackPanel21_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="21" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace21" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="21" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="4" >
+            <Label x:Name="Label22" Content="{Binding DayLabelsArray[21]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[21]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel22" MouseLeftButtonDown="StackPanel22_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="22" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace22" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="22" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="4" >
+            <Label x:Name="Label23" Content="{Binding DayLabelsArray[22]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[22]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel23" MouseLeftButtonDown="StackPanel23_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="23" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace23" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="23" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="4" >
+            <Label x:Name="Label24" Content="{Binding DayLabelsArray[23]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[23]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel24" MouseLeftButtonDown="StackPanel24_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="24" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace24" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="24" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="4" Grid.Row="4" >
+            <Label x:Name="Label25" Content="{Binding DayLabelsArray[24]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[24]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel25" MouseLeftButtonDown="StackPanel25_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="25" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace25" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="25" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="5" Grid.Row="4" >
+            <Label x:Name="Label26" Content="{Binding DayLabelsArray[25]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[25]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel26" MouseLeftButtonDown="StackPanel26_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="26" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace26" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="26" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Grid.Row="4" >
+            <Label x:Name="Label27" Content="{Binding DayLabelsArray[26]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[26]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel27" MouseLeftButtonDown="StackPanel27_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="27" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace27" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="27" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="7" Grid.Row="4" >
+            <Label x:Name="Label28" Content="{Binding DayLabelsArray[27]}" Height="23" FontSize="10" Background="{Binding DayLabelBackgroundsArray[27]}" BorderThickness="0.7" BorderBrush="Black" />
+            <StackPanel x:Name="StackPanel28" MouseLeftButtonDown="StackPanel28_MouseLeftButtonDown">
+                <StackPanel.InputBindings>
+                    <MouseBinding Command="{Binding EditEventCommandProperty}" CommandParameter="28" MouseAction="LeftDoubleClick"/>
+                </StackPanel.InputBindings>
+            </StackPanel>
+            <Label Name="EmptySpace28" Height="200" Background="White" >
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding AddEventCommandProperty}" CommandParameter="28" MouseAction="LeftDoubleClick"/>
+                </Label.InputBindings>
+            </Label>
+        </StackPanel>
+    </Grid>
+</Window>

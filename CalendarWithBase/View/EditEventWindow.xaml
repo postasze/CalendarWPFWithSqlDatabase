@@ -1,0 +1,22 @@
+﻿<Window x:Class="CalendarWithBase.View.EditEventWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="EditEventWindow" Height="340" Width="520" MinHeight="340" MinWidth="520" MaxHeight="340" MaxWidth="520">
+    <Grid Height="300" Width="500">
+        <Button Content="Anuluj" Height="23" HorizontalAlignment="Left" Margin="193,250,0,0" x:Name="cancelButton" VerticalAlignment="Top" Width="75" Click="cancelButton_Click" />
+        <Button Content="Zapisz" Height="23" HorizontalAlignment="Left" Margin="390,250,0,0" x:Name="saveButton" VerticalAlignment="Top" Width="75" Click="saveButton_Click" />
+        <Button Content="Usuń" Height="23" HorizontalAlignment="Left" Margin="292,250,0,0" x:Name="eraseButton" VerticalAlignment="Top" Width="75" Click="eraseButton_Click" />
+        <ComboBox x:Name="startHourComboBox" Height="23" HorizontalAlignment="Left" Margin="253,96,0,0" VerticalAlignment="Top" Width="47" />
+        <ComboBox x:Name="startMinuteComboBox" Height="23" HorizontalAlignment="Left" Margin="373,96,0,0" VerticalAlignment="Top" Width="47" />
+        <ComboBox x:Name="endHourComboBox" Height="23" HorizontalAlignment="Left" Margin="253,145,0,0" VerticalAlignment="Top" Width="47" />
+        <ComboBox x:Name="endMinuteComboBox" Height="23" HorizontalAlignment="Left" Margin="373,145,0,0" VerticalAlignment="Top" Width="47" />
+        <Label Content="Wybierz czas rozpoczęcia" Height="28" HorizontalAlignment="Left" Margin="20,96,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="Wybierz czas zakończenia" Height="28" HorizontalAlignment="Left" Margin="20,140,0,0" Name="label2" VerticalAlignment="Top" />
+        <Label Content="Wprowadź opis wydarzenia" Height="28" HorizontalAlignment="Left" Margin="20,51,0,0" Name="label3" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="202,53,0,0" x:Name="descriptionTextBox" VerticalAlignment="Top" Width="120" />
+        <Label Content="Godzina" Height="28" HorizontalAlignment="Left" Margin="193,145,0,0" Name="label4" VerticalAlignment="Top" />
+        <Label Content="Godzina" Height="28" HorizontalAlignment="Left" Margin="193,96,0,0" Name="label5" VerticalAlignment="Top" />
+        <Label Content="Minuta" Height="28" HorizontalAlignment="Left" Margin="320,96,0,0" Name="label6" VerticalAlignment="Top" />
+        <Label Content="Minuta" Height="28" HorizontalAlignment="Left" Margin="320,145,0,0" Name="label7" VerticalAlignment="Top" />
+    </Grid>
+</Window>
